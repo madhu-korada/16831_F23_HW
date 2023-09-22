@@ -1,0 +1,9 @@
+submit/
+submit.zip
+
+*/__pycache__/
+*/*/__pycache__/
+*/*/*/__pycache__/
+
+hw1/data/
+hw1/rob831.egg-info/

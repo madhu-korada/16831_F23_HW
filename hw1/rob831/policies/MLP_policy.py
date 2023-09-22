@@ -81,23 +81,48 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
             observation = obs[None]
 
         # TODO return the action that the policy prescribes
-        raise NotImplementedError
+        # transform the observation into tensor
+        observation = ptu.from_numpy(observation)
+        # op_obs = self.forward(observation)
+        action = self.forward(observation).sample()
+        # # action = torch.argmax(op_obs, dim=-1)
+        # if self.discrete:
+        #     action = self.logits_na(op_obs.to(ptu.device))
+        # else:
+        #     action = torch.normal(op_obs.mean, torch.exp(op_obs.logstd))
+
+        return ptu.to_numpy(action)
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):
-        raise NotImplementedError
-
+        # calculate the loss
+        loss = self.loss(self.forward(observations), actions)
+        # zero the gradients
+        self.optimizer.zero_grad()
+        # perform a backward pass (backpropagation)
+        loss.backward()
+        # Update the parameters
+        self.optimizer.step()
+        return {
+            # You can add extra logging information here, but keep this line
+            'Training Loss': ptu.to_numpy(loss),
+        }
+        
     # This function defines the forward pass of the network.
     # You can return anything you want, but you should be able to differentiate
     # through it. For example, you can return a torch.FloatTensor. You can also
     # return more flexible objects, such as a
     # `torch.distributions.Distribution` object. It's up to you!
     def forward(self, observation: torch.FloatTensor) -> Any:
-        raise NotImplementedError
-
+        if self.discrete:
+            return distributions.Categorical(logits=self.logits_na(observation.to(ptu.device)))
+        else:
+            return distributions.Normal(self.mean_net(observation.to(ptu.device)), torch.exp(self.logstd))
+            # return distributions.Normal(self.mean_net(observation), torch.exp(self.logstd))
+            
 
 #####################################################
-#####################################################
+#####################################################   
 
 class MLPPolicySL(MLPPolicy):
     def __init__(self, ac_dim, ob_dim, n_layers, size, **kwargs):
@@ -109,7 +134,17 @@ class MLPPolicySL(MLPPolicy):
             adv_n=None, acs_labels_na=None, qvals=None
     ):
         # TODO: update the policy and return the loss
-        loss = TODO
+        # calculate the loss
+        observations = ptu.from_numpy(observations)
+        actions = ptu.from_numpy(actions)
+        
+        op_obs = self.forward(observations).rsample()
+        loss = self.loss(op_obs, actions)
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        # Update the parameters
+        self.optimizer.step()
 
         return {
             # You can add extra logging information here, but keep this line
