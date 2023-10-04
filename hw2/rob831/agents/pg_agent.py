@@ -82,7 +82,7 @@ class PGAgent(BaseAgent):
         else:
             raise NotImplementedError
 
-        return q_values
+        return q_values  # return an array
 
     def estimate_advantage(self, obs, rewards_list, q_values, terminals):
 
@@ -168,25 +168,24 @@ class PGAgent(BaseAgent):
 
             Input: list of rewards {r_0, r_1, ..., r_t', ... r_T} from a single rollout of length T
 
-            Output: list where each index t contains sum_{t'=0}^T gamma^t' r_{t'}
+            Output: array where each index t contains sum_{t'=0}^T gamma^t' r_{t'}
         """
 
-        # TODO: create list_of_discounted_returns
+        # TODO: create discounted_returns
         raise NotImplementedError
 
-        return list_of_discounted_returns
-
+        return discounted_returns
 
     def _discounted_cumsum(self, rewards):
         """
             Helper function which
             -takes a list of rewards {r_0, r_1, ..., r_t', ... r_T},
-            -and returns a list where the entry in each index t' is sum_{t'=t}^T gamma^(t'-t) * r_{t'}
+            -and returns an array where the entry in each index t' is sum_{t'=t}^T gamma^(t'-t) * r_{t'}
         """
 
-        # TODO: create `list_of_discounted_returns`
+        # TODO: create `discounted_cumsums`
         # HINT: it is possible to write a vectorized solution, but a solution
             # using a for loop is also fine
         raise NotImplementedError
-        
-        return list_of_discounted_cumsums
+
+        return discounted_cumsums
