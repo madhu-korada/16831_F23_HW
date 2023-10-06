@@ -49,7 +49,18 @@ def build_mlp(
         output_activation = _str_to_activation[output_activation]
     
     # TODO: get this from hw1
-    raise NotImplementedError
+    # raise NotImplementedError
+    # TODO: return a MLP. This should be an instance of nn.Module  [OK]
+    # Note: nn.Sequential is an instance of nn.Module.
+    layers = []
+    layers.append(nn.Linear(input_size, size))
+    layers.append(activation)
+    for i in range(n_layers-2):
+        layers.append(nn.Linear(size, size))
+        layers.append(activation)
+    layers.append(nn.Linear(size, output_size))
+    layers.append(output_activation)
+    return nn.Sequential(*layers)
 
 
 device = None
@@ -57,12 +68,14 @@ device = None
 
 def init_gpu(use_gpu=True, gpu_id=0):
     global device
-    if torch.cuda.is_available() and use_gpu:
-        device = torch.device("cuda:" + str(gpu_id))
-        print("Using GPU id {}".format(gpu_id))
-    else:
-        device = torch.device("cpu")
-        print("GPU not detected. Defaulting to CPU.")
+    device = torch.device("cpu")
+    print("GPU not detected. Defaulting to CPU.")
+    # if torch.cuda.is_available() and use_gpu:
+    #     device = torch.device("cuda:" + str(gpu_id))
+    #     print("Using GPU id {}".format(gpu_id))
+    # else:
+    #     device = torch.device("cpu")
+    #     print("GPU not detected. Defaulting to CPU.")
 
 
 def set_device(gpu_id):

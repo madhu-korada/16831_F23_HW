@@ -147,20 +147,17 @@ class MLPPolicyPG(MLPPolicy):
             # by the `forward` method
         # HINT3: don't forget that `optimizer.step()` MINIMIZES a loss
         # HINT4: use self.optimizer to optimize the loss. Remember to
-            # 'zero_grad' first 
-
-        # raise NotImplementedError
+            # 'zero_grad' first
         action_distribution = self(observations)
         log_prob = action_distribution.log_prob(actions)
-        # print(log_prob.shape)
-        # print(advantages.shape)
-        print(actions.shape,log_prob.shape, advantages.shape)
-        mat = log_prob * advantages
-        policy_loss = -torch.mean(mat)
+        print(actions.shape)
+        print(log_prob.shape, advantages.shape)
+        loss = -(log_prob * advantages).sum()
         self.optimizer.zero_grad()
-        policy_loss.backward()
+        loss.backward()
         self.optimizer.step()
-
+        policy_loss = loss.item()
+        # raise NotImplementedError
 
         if self.nn_baseline:
             ## TODO: update the neural network baseline using the q_values as
@@ -171,19 +168,18 @@ class MLPPolicyPG(MLPPolicy):
                 ## updating the baseline. Remember to 'zero_grad' first
             ## HINT2: You will need to convert the targets into a tensor using
                 ## ptu.from_numpy before using it in the loss
-            # raise NotImplementedError
-
-            q_values = normalize(q_values, np.mean(q_values), np.std(q_values))
-            targets = ptu.from_numpy(q_values)
+            q_values = ptu.from_numpy(q_values)
+            q_values = normalize(q_values, q_values.mean(), q_values.std())
             baseline_predictions = self.baseline(observations).squeeze()
-            baseline_loss = self.baseline_loss(baseline_predictions, targets)
+            baseline_loss = self.baseline_loss(baseline_predictions, q_values)
             self.baseline_optimizer.zero_grad()
             baseline_loss.backward()
             self.baseline_optimizer.step()
-
-
+            # raise NotImplementedError
+        # print("policy_loss: ", policy_loss)
         train_log = {
-            'Training Loss': ptu.to_numpy(policy_loss),
+            # 'Training Loss': ptu.to_numpy(policy_loss),
+            'Training Loss': policy_loss,
         }
         return train_log
 
