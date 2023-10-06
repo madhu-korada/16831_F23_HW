@@ -101,7 +101,6 @@ class PGAgent(BaseAgent):
             values_normalized = self.actor.run_baseline_prediction(obs)
             ## ensure that the value predictions and q_values have the same dimensionality
             ## to prevent silent broadcasting errors
-            q_values = np.squeeze(q_values)
             assert values_normalized.ndim == q_values.ndim
             ## TODO: values were trained with standardized q_values, so ensure
                 ## that the predictions have the same mean and standard deviation as
@@ -131,6 +130,11 @@ class PGAgent(BaseAgent):
                     ## HINT 2: self.gae_lambda is the lambda value in the
                         ## GAE formula
                     # raise NotImplementedError
+                    # if terminals[i]:
+                    #     advantages[i] = rewards[i] - values[i]
+                    # else:
+                    #     advantages[i] = rewards[i] + self.gamma * values[i+1] - values[i] + self.gamma * self.gae_lambda * advantages[i+1]
+                    
                     not_terminal = 1 - terminals[i]
                     delta = rewards[i] + self.gamma * values[i + 1] * not_terminal - values[i]
                     advantages[i] = delta + self.gamma * self.gae_lambda * not_terminal * advantages[i + 1]
@@ -181,14 +185,10 @@ class PGAgent(BaseAgent):
 
         # TODO: create list_of_discounted_returns
         # raise NotImplementedError
-        # list_of_discounted_returns = []
-        # for i in range(len(rewards)):
-        #     discounted_return = sum([self.gamma**j * rewards[i+j] for j in range(len(rewards)-i)])
-        #     list_of_discounted_returns.append(discounted_return)
-        rewards_array = np.array(rewards)
+        rewards = np.array(rewards)
         discounts = self.gamma ** np.array(list(range(len(rewards))))
-        discounted_return = (np.sum(discounts * rewards_array))
-        list_of_discounted_returns = list([discounted_return])*len(rewards)
+        discounted_return = (np.sum(discounts * rewards))
+        discounted_returns = list([discounted_return])*len(rewards)
 
         return discounted_returns
 
