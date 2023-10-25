@@ -80,8 +80,8 @@ class DQNCritic(BaseCritic):
             qa_t_values_next = self.q_net(next_ob_no)
             # _, a_tp1_max = qa_t_values_next.max(dim=1)
 
-            actions = torch.argmax(qa_t_values_next, dim=1)
-            q_tp1 = torch.gather(qa_tp1_values, 1, actions.unsqueeze(1)).squeeze(1)
+            action = torch.argmax(qa_t_values_next, dim=1)
+            q_tp1 = torch.gather(qa_tp1_values, 1, action.unsqueeze(1)).squeeze(1)
             # q_tp1 = qa_tp1_values[action_idx]
             
         else:
