@@ -44,5 +44,5 @@ For RND :
 - [cs16831/hw4_part2/exploration/rnd_model.py](cs16831/hw4_part2/exploration/rnd_model.py)
 - [cs16831/hw4_part2/agents/explore_or_exploit_agent.py](cs16831/hw4_part2/agents/explore_or_exploit_agent.py)
 
-See the [assignment PDF](cs16831_hw4.pdf) for more details on what files to edit.
+See the [assignment PDF](16831_F23_HW-4.pdf) for more details on what files to edit.
 
