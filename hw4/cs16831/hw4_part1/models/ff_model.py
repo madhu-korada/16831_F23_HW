@@ -95,7 +95,7 @@ class FFModel(nn.Module, BaseModel):
         
         delta_pred_normalized = self.delta_network(concatenated_input)
         delta_pred_unnormalized = unnormalize(ptu.to_numpy(delta_pred_normalized), delta_mean, delta_std)
-        next_obs_pred = obs_normalized + delta_pred_unnormalized
+        next_obs_pred = ptu.to_numpy(obs_normalized) + delta_pred_unnormalized
         return next_obs_pred, delta_pred_normalized
 
     def get_prediction(self, obs, acs, data_statistics):

@@ -1,0 +1,52 @@
+----------
+Question 1
+----------
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q1_cheetah_n500_arch1x32 --env_name cheetah-hw4_part1-v0 --add_sl_noise --n_iter 1 --batch_size_initial 20000 --num_agent_train_steps_per_iter 500 --n_layers 1 --size 32 --scalar_log_freq -1 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q1_cheetah_n5_arch2x250 --env_name cheetah-hw4_part1-v0 --add_sl_noise --n_iter 1 --batch_size_initial 20000 --num_agent_train_steps_per_iter 5 --n_layers 2 --size 250 --scalar_log_freq -1 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q1_cheetah_n500_arch2x250 --env_name cheetah-hw4_part1-v0 --add_sl_noise --n_iter 1 --batch_size_initial 20000 --num_agent_train_steps_per_iter 500 --n_layers 2 --size 250 --scalar_log_freq -1 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+
+----------
+Question 2
+----------
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q2_obstacles_singleiteration --env_name obstacles-rob831-v0 --add_sl_noise --num_agent_train_steps_per_iter 20 --n_iter 1 --batch_size_initial 5000 --batch_size 1000 --mpc_horizon 10 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+
+----------
+Question 3
+----------
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q3_obstacles --env_name obstacles-hw4_part1-v0 --add_sl_noise --num_agent_train_steps_per_iter 20 --batch_size_initial 5000 --batch_size 1000 --mpc_horizon 10 --n_iter 12 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q3_reacher --env_name reacher-hw4_part1-v0 --add_sl_noise --mpc_horizon 10 --num_agent_train_steps_per_iter 1000 --batch_size_initial 5000 --batch_size 5000 --n_iter 15 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q3_cheetah --env_name cheetah-hw4_part1-v0 --mpc_horizon 15 --add_sl_noise --num_agent_train_steps_per_iter 1500 --batch_size_initial 5000 --batch_size 5000 --n_iter 20 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+
+----------
+Question 4
+----------
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q4_reacher_horizon5 --env_name reacher-hw4_part1-v0 --add_sl_noise --mpc_horizon 5 --num_agent_train_steps_per_iter 1000 --batch_size 800 --n_iter 15 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q4_reacher_horizon15 --env_name reacher-hw4_part1-v0 --add_sl_noise --mpc_horizon 15 --num_agent_train_steps_per_iter 1000 --batch_size 800 --n_iter 15 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q4_reacher_horizon30 --env_name reacher-hw4_part1-v0 --add_sl_noise --mpc_horizon 30 --num_agent_train_steps_per_iter 1000 --batch_size 800 --n_iter 15 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q4_reacher_numseq100 --env_name reacher-hw4_part1-v0 --add_sl_noise --mpc_horizon 10 --num_agent_train_steps_per_iter 1000 --batch_size 800 --n_iter 15 --mpc_num_action_sequences 100 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q4_reacher_numseq1000 --env_name reacher-hw4_part1-v0 --add_sl_noise --mpc_horizon 10 --num_agent_train_steps_per_iter 1000 --batch_size 800 --n_iter 15 --video_log_freq -1 --mpc_num_action_sequences 1000 --mpc_action_sampling_strategy 'random'
+
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q4_reacher_ensemble1 --env_name reacher-hw4_part1-v0 --ensemble_size 1 --add_sl_noise --mpc_horizon 10 --num_agent_train_steps_per_iter 1000 --batch_size 800 --n_iter 15 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q4_reacher_ensemble3 --env_name reacher-hw4_part1-v0 --ensemble_size 3 --add_sl_noise --mpc_horizon 10 --num_agent_train_steps_per_iter 1000 --batch_size 800 --n_iter 15 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q4_reacher_ensemble5 --env_name reacher-hw4_part1-v0 --ensemble_size 5 --add_sl_noise --mpc_horizon 10 --num_agent_train_steps_per_iter 1000 --batch_size 800 --n_iter 15 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+
+----------
+Question 5
+----------
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q5_cheetah_random --env_name 'cheetah-hw4_part1-v0' --mpc_horizon 15 --add_sl_noise --num_agent_train_steps_per_iter 1500 --batch_size_initial 5000 --batch_size 5000 --n_iter 5 --video_log_freq -1 --mpc_action_sampling_strategy 'random'
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q5_cheetah_cem_2 --env_name 'cheetah-hw4_part1-v0' --mpc_horizon 15 --add_sl_noise --num_agent_train_steps_per_iter 1500 --batch_size_initial 5000 --batch_size 5000 --n_iter 5 --video_log_freq -1 --mpc_action_sampling_strategy 'cem' --cem_iterations 2
+python -m cs16831.hw4_part1.scripts.run_hw4_mb --exp_name q5_cheetah_cem_4 --env_name 'cheetah-hw4_part1-v0' --mpc_horizon 15 --add_sl_noise --num_agent_train_steps_per_iter 1500 --batch_size_initial 5000 --batch_size 5000 --n_iter 5 --video_log_freq -1 --mpc_action_sampling_strategy 'cem' --cem_iterations 4
+
+----------
+Question 6
+----------
+python -m cs16831.hw4_part2.scripts.run_hw4_expl --env_name PointmassEasy-v0 --use_rnd --unsupervised_exploration --exp_name q6_env1_rnd
+python -m cs16831.hw4_part2.scripts.run_hw4_expl --env_name PointmassEasy-v0 --unsupervised_exploration --exp_name q6_env1_random
+python -m cs16831.hw4_part2.scripts.run_hw4_expl --env_name PointmassHard-v0 --use_rnd --unsupervised_exploration --exp_name q6_env2_rnd
+python -m cs16831.hw4_part2.scripts.run_hw4_expl --env_name PointmassHard-v0 --unsupervised_exploration --exp_name q6_env2_random
+
+BONUS:
+
+python cs16831.hw4_part2.scripts.run_hw5_expl --env_name PointmassMedium-v0 --unsupervised_exploration <add arguments for your method> --exp_name q1_alg_med
+python cs16831.hw4_part2.scripts.run_hw5_expl --env_name PointmassHard-v0 --unsupervised_exploration <add arguments for your method> --exp_name q1_alg_hard
