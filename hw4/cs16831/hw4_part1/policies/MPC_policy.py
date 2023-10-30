@@ -165,7 +165,7 @@ class MPCPolicy(BasePolicy):
             actions = candidate_action_sequences[:, i, :]
             rewards, done = self.env.get_reward(predicted_obs, actions)
             sum_of_rewards += rewards
-            predicted_obs[i, 0] = obs
+            # predicted_obs[i, 0] = obs
             obs = model.get_prediction(predicted_obs, actions, self.data_statistics)
           
         return sum_of_rewards
