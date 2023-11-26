@@ -322,7 +322,7 @@ class Pointmass(gym.Env):
     self.observation_space = gym.spaces.Box(
         low=np.array([0,0]),
         high=np.array([self._height, self._width]),
-        dtype=np.float64)
+        dtype=float)
 
     self.dense_reward = dense_reward
     self.num_actions = 5
@@ -391,7 +391,7 @@ class Pointmass(gym.Env):
     return best_action
 
   def _discretize_state(self, state, resolution=1.0):
-    (i, j) = np.floor(resolution * state).astype(np.int)
+    (i, j) = np.floor(resolution * state).astype(int)
     # Round down to the nearest cell if at the boundary.
     if i == self._height:
       i -= 1
@@ -469,7 +469,8 @@ class Pointmass(gym.Env):
             g.add_edge((i, j), (i + di, j + dj))
 
     # dist[i, j, k, l] is path from (i, j) -> (k, l)
-    dist = np.full((height, width, height, width), np.float('inf'))
+    # dist = np.full((height, width, height, width), np.float('inf'))
+    dist = np.full((height, width, height, width), float)
     for ((i1, j1), dist_dict) in nx.shortest_path_length(g):
       for ((i2, j2), d) in dist_dict.items():
         dist[i1, j1, i2, j2] = d
@@ -530,7 +531,7 @@ class Pointmass(gym.Env):
     state_index = np.random.choice(num_candidate_states)
     state = np.array([candidate_states[0][state_index],
                       candidate_states[1][state_index]],
-                     dtype=np.float)
+                     dtype=float)
     state += np.random.uniform(size=2)
     assert not self._is_blocked(state)
     return state

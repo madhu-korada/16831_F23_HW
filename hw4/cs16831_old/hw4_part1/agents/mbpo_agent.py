@@ -24,20 +24,21 @@ class MBPOAgent(BaseAgent):
         # dynamics model. Start from a state sampled from the replay buffer.
 
         # sample 1 transition from self.mb_agent.replay_buffer
-        ob, _, _, _, terminal = TODO
+        ob, _, _, _, terminal = self.mb_agent.replay_buffer.sample_random_data(1)
 
         obs, acs, rewards, next_obs, terminals, image_obs = [], [], [], [], [], []
         for _ in range(rollout_length):
             # get the action from the policy
-            ac = TODO
+            ac = self.actor.get_action(ob)#, deterministic=True)
             
             # determine the next observation by averaging the prediction of all the 
             # dynamics models in the ensemble
-            next_ob = TODO
+            next_ob = np.mean([model.get_prediction(ob, ac, self.mb_agent.data_statistics) \
+                                for model in self.mb_agent.dyn_models], axis=0)
 
             # query the reward function to determine the reward of this transition
             # HINT: use self.env.get_reward
-            rew, _ = TODO
+            rew, _ = self.env.get_reward(ob, ac, next_ob)
 
             obs.append(ob[0])
             acs.append(ac[0])
